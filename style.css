@@ -1,0 +1,28 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter span {
+    padding-right: 10px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.flex-align-top {
+    margin: 20px;
+    align-items: flex-start;
+}
+
+.panel {
+    width: 50%;
+    border: 1px solid lightgray;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}

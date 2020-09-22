@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>search-devs</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1 style="text-align: center">search-devs</h1>
+    <div class="container">
+      <form action="#">
+        <input placeholder="Pesquisa por nome" />
+        <div class="filter">
+          <div>
+            <label>
+              <input type="checkbox" />
+              <span>Java</span>
+            </label>
+            <label>
+              <input type="checkbox" />
+              <span>JavaScript</span>
+            </label>
+            <label>
+              <input type="checkbox" />
+              <span>Python</span>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input name="conditional" type="radio" checked />
+              <span>E</span>
+            </label>
+            <label>
+              <input name="conditional" type="radio" />
+              <span>OU</span>
+            </label>
+          </div>
+        </div>
+        <div class="flex-row flex-align-top">
+          <div id="panelDevs" class="panel">
+            <h6>Nenhum 'dev' encontrado</h6>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./index.js" />
+  </body>
+</html>
