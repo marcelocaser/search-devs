@@ -9,25 +9,32 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <h1 style="text-align: center">search-devs</h1>
-    <div class="container">
+
+    <div id="preloader" class="flex-row flex-center">
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
+
+    <div id="frmSearch" class="container hidden">
       <form action="#">
-        <input placeholder="Pesquisa por nome" />
+        <input id="search" placeholder="Pesquisa por nome" />
         <div class="filter">
-          <div>
-            <label>
-              <input type="checkbox" />
+          <div id="languesTypes">
+            <label for="java">
+              <input id="java" type="checkbox"/>
               <span>Java</span>
             </label>
-            <label>
-              <input type="checkbox" />
+            <label for="javascript">
+              <input id="javascript" type="checkbox" />
               <span>JavaScript</span>
             </label>
-            <label>
-              <input type="checkbox" />
+            <label for="python">
+              <input id="python" type="checkbox" />
               <span>Python</span>
             </label>
           </div>
@@ -42,16 +49,14 @@
             </label>
           </div>
         </div>
-        <div class="flex-row flex-align-top">
-          <div id="panelDevs" class="panel">
-            <h6>Nenhum 'dev' encontrado</h6>
-          </div>
-        </div>
       </form>
+      <div class="flex-align-top">
+        <div id="panelDevs" class="row"></div>
+      </div>
     </div>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./index.js" />
+    <script src="./assets/js/index.js" />
   </body>
 </html>

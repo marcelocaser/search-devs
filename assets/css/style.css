@@ -1,0 +1,47 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter span {
+    padding-right: 10px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.flex-align-top {
+    margin: 20px;
+    align-items: flex-start;
+}
+
+.panel {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.space-bottom {
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.language-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
