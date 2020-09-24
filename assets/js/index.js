@@ -145,7 +145,6 @@ function handleSelectedConditional(event) {
 function filterDevs() {
   let filteredDevs = [];
   const filterTextLowerCase = filterText.toLocaleLowerCase();
-  console.log(filteredLanguages);
   filteredDevs = devs.filter((dev) => {
     return dev.nameLowerCase.includes(filterTextLowerCase);
   });
