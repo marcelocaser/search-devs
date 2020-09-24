@@ -1,15 +1,28 @@
 let inputSearch = null;
 let checkBoxLanguages = null;
+let radioButtonConditionals = null;
+let filterConditional = null;
+let filterText = "";
+let formSearch = null;
 let preloader = null;
-let frmSearch = null;
+let pnlSearch = null;
 let panelDevs = null;
 let devs = [];
+let filteredLanguages = [];
 
 function getElements() {
   inputSearch = document.querySelector("#search");
-  checkBoxLanguages = document.querySelector("#languesTypes");
+  checkBoxLanguages = document.querySelectorAll("[name='languesTypes']");
+  radioButtonConditionals = document.querySelectorAll(
+    "[name='conditionalTypes']"
+  );
+  filterConditional = document.querySelector(
+    "[name='conditionalTypes']:checked"
+  ).id;
+  checkBoxLanguages.forEach((language) => language.checked ? filteredLanguages.push(language.id) : null);
+  formSearch = document.querySelector("#frmSearch");
   preloader = document.querySelector("#preloader");
-  frmSearch = document.querySelector("#frmSearch");
+  pnlSearch = document.querySelector("#pnlSearch");
   panelDevs = document.querySelector("#panelDevs");
 }
 
@@ -19,7 +32,7 @@ async function fetchDevs() {
   devs = json
     .map(({ id, name, picture, programmingLanguages }) => {
       const nameLowerCase = name
-        .toLowerCase()
+        .toLocaleLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f-\x20]/g, "");
       return {
@@ -37,9 +50,11 @@ async function fetchDevs() {
   devs = devs.map(
     ({ id, name, picture, nameLowerCase, programmingLanguages }) => {
       const programmingLanguagesWithIcons = [];
+      const languagesTypes = [];
       programmingLanguages.forEach((languages) => {
         const { language, experience, id } = languages;
-        const idLowerCase = id.toLowerCase();
+        const idLowerCase = id.toLocaleLowerCase();
+        languagesTypes.push(language.toLocaleLowerCase());
         switch (language) {
           case "Java":
             programmingLanguagesWithIcons.push({
@@ -74,6 +89,7 @@ async function fetchDevs() {
         name,
         nameLowerCase,
         picture,
+        languagesTypes /*: languagesTypes.join("").toLocaleLowerCase(),*/,
         programmingLanguagesWithIcons,
       };
     }
@@ -87,49 +103,58 @@ async function fetchDevs() {
 function showPreloader() {
   setTimeout(() => {
     preloader.classList.add("hidden");
-    frmSearch.classList.remove("hidden");
+    pnlSearch.classList.remove("hidden");
   }, 2000);
 }
 
 function addEvent() {
   inputSearch.addEventListener("input", handleKeyUp);
-  checkBoxLanguages.addEventListener("click", handleSelectedLanguage);
+  checkBoxLanguages.forEach((checkBoxLanguage) => {
+    checkBoxLanguage.addEventListener("input", handleSelectedLanguage);
+  });
+  radioButtonConditionals.forEach((radioButtonConditional) => {
+    radioButtonConditional.addEventListener("input", handleSelectedConditional);
+  });
+}
+
+function handleSearch(event) {
+  event.preventDefault();
 }
 
 function handleKeyUp(event) {
-  const filterText = event.target.value;
-  filterDevs(filterText);
+  filterText = event.target.value;
+  filterDevs();
 }
 
-function handleSelectedLanguage(event) {
-  const filterLanguage = event.target.id;
-  filterByLanguageType(filterLanguage);
+function handleSelectedLanguage() {
+  filteredLanguages = [];
+  const filterLanguages = document.querySelectorAll(
+    "[name=languesTypes]:checked"
+  );
+  filterLanguages.forEach(({ id }) => {
+    filteredLanguages.push(id);
+  });
+  filterDevs();
 }
 
-function filterDevs(filterText) {
-  const filterTextLowerCase = filterText.toLowerCase();
-  const filteredDevs = devs.filter((dev) => {
+function handleSelectedConditional(event) {
+  filterConditional = event.target.id;
+  filterDevs();
+}
+
+function filterDevs() {
+  let filteredDevs = [];
+  const filterTextLowerCase = filterText.toLocaleLowerCase();
+  console.log(filteredLanguages);
+  filteredDevs = devs.filter((dev) => {
     return dev.nameLowerCase.includes(filterTextLowerCase);
   });
-  showDevs(filteredDevs);
-}
-
-function filterByLanguageType(filterLanguage) {
-  const filteredLanguages = [];
-  devs.map((dev) => {
-    const programmingLanguagesWithIcons = dev.programmingLanguagesWithIcons.filter(
-      (language) => {
-        return language.idLowerCase === filterLanguage;
-      }
-    );
-    if (programmingLanguagesWithIcons.length > 0) {
-      filteredLanguages.push({
-        ...dev,
-        programmingLanguagesWithIcons,
-      });
-    }
+  filteredDevs = filteredDevs.filter((dev) => {
+    return filterConditional === "or"
+      ? filteredLanguages.some((i) => dev.languagesTypes.includes(i))
+      : dev.languagesTypes.join("") === filteredLanguages.join("");
   });
-  showDevs(filteredLanguages);
+  showDevs(filteredDevs);
 }
 
 function showDevs(devs) {

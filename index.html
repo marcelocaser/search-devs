@@ -20,31 +20,31 @@
       </div>
     </div>
 
-    <div id="frmSearch" class="container hidden">
-      <form action="#">
+    <div id="pnlSearch" class="container hidden">
+      <form id="frmSearch" action="#">
         <input id="search" placeholder="Pesquisa por nome" />
         <div class="filter">
-          <div id="languesTypes">
+          <div>
             <label for="java">
-              <input id="java" type="checkbox"/>
+              <input id="java" type="checkbox" name="languesTypes" checked/>
               <span>Java</span>
             </label>
             <label for="javascript">
-              <input id="javascript" type="checkbox" />
+              <input id="javascript" type="checkbox" name="languesTypes" checked/>
               <span>JavaScript</span>
             </label>
             <label for="python">
-              <input id="python" type="checkbox" />
+              <input id="python" type="checkbox" name="languesTypes" checked/>
               <span>Python</span>
             </label>
           </div>
           <div>
-            <label>
-              <input name="conditional" type="radio" checked />
+            <label for="and">
+              <input id="and" type="radio" name="conditionalTypes"/>
               <span>E</span>
             </label>
-            <label>
-              <input name="conditional" type="radio" />
+            <label for="or">
+              <input id="or" type="radio" name="conditionalTypes" checked/>
               <span>OU</span>
             </label>
           </div>
