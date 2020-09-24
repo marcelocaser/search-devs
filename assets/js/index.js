@@ -150,7 +150,7 @@ function filterDevs() {
   });
   filteredDevs = filteredDevs.filter((dev) => {
     return filterConditional === "or"
-      ? filteredLanguages.some((i) => dev.languagesTypes.includes(i))
+      ? filteredLanguages.some((item) => dev.languagesTypes.includes(item))
       : dev.languagesTypes.join("") === filteredLanguages.join("");
   });
   showDevs(filteredDevs);
