@@ -21,8 +21,8 @@
     </div>
 
     <div id="pnlSearch" class="container hidden">
-      <form id="frmSearch" action="#">
-        <input id="search" placeholder="Pesquisa por nome" />
+      <form id="frmSearch" onsubmit="handleFormSubmit(event)">
+        <input id="search" placeholder="Pesquisa por nome" autofocus/>
         <div class="filter">
           <div>
             <label for="java">

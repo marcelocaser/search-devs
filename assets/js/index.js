@@ -10,6 +10,12 @@ let panelDevs = null;
 let devs = [];
 let filteredLanguages = [];
 
+window.addEventListener("load", async () => {
+  getElements();
+  await fetchDevs();
+  addEvent();
+});
+
 function getElements() {
   inputSearch = document.querySelector("#search");
   checkBoxLanguages = document.querySelectorAll("[name='languesTypes']");
@@ -19,7 +25,9 @@ function getElements() {
   filterConditional = document.querySelector(
     "[name='conditionalTypes']:checked"
   ).id;
-  checkBoxLanguages.forEach((language) => language.checked ? filteredLanguages.push(language.id) : null);
+  checkBoxLanguages.forEach((language) =>
+    language.checked ? filteredLanguages.push(language.id) : null
+  );
   formSearch = document.querySelector("#frmSearch");
   preloader = document.querySelector("#preloader");
   pnlSearch = document.querySelector("#pnlSearch");
@@ -104,6 +112,7 @@ function showPreloader() {
   setTimeout(() => {
     preloader.classList.add("hidden");
     pnlSearch.classList.remove("hidden");
+    activateInput();
   }, 2000);
 }
 
@@ -117,8 +126,12 @@ function addEvent() {
   });
 }
 
-function handleSearch(event) {
+function handleFormSubmit(event) {
   event.preventDefault();
+}
+
+function activateInput() {
+  inputSearch.focus();
 }
 
 function handleKeyUp(event) {
@@ -170,18 +183,18 @@ function showDevs(devs) {
     panelDevs.appendChild(h3);
     const ul = document.createElement("ul");
     devs.forEach((dev) => {
-      const { programmingLanguagesWithIcons } = dev;
+      const { picture, name, programmingLanguagesWithIcons } = dev;
       const li = document.createElement("li");
       li.classList.add("flex-row");
       li.classList.add("space-bottom");
       li.classList.add("col");
       li.classList.add("s4");
       li.classList.add("panel");
-      const img = `<img class='avatar' src="${dev.picture}" alt="${dev.name}" />`;
-      const userData = `<span>${dev.name}</span>`;
+      const img = `<img class='avatar' src="${picture}" alt="${name}" />`;
+      const userData = `<span>${name}</span>`;
       let languages = "";
-      programmingLanguagesWithIcons.forEach((language) => {
-        languages = `${languages} <img class='language-icon' src="${language.icon}" alt="${language.language}"></img>`;
+      programmingLanguagesWithIcons.forEach(({ icon, language }) => {
+        languages = `${languages} <img class='language-icon' src="${icon}" alt="${language}"></img>`;
       });
       li.innerHTML = `${img}${userData}${languages}`;
       ul.appendChild(li);
@@ -189,9 +202,3 @@ function showDevs(devs) {
     panelDevs.appendChild(ul);
   }
 }
-
-window.addEventListener("load", async () => {
-  getElements();
-  await fetchDevs();
-  addEvent();
-});
